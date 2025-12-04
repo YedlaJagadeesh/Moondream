@@ -1,15 +1,7 @@
-const sendBtn = document.getElementById("sendBtn");
-const promptInput = document.getElementById("prompt");
-const responseDiv = document.getElementById("response");
-
-sendBtn.addEventListener("click", async () => {
-    const prompt = promptInput.value.trim();
-    if (!prompt) return;
-
-    responseDiv.textContent = "Loading...";
-
+document.getElementById("sendBtn").addEventListener("click", async function() {
+    const prompt = document.getElementById("prompt").value;
     try {
-        const res = await fetch("http://192.168.1.104:8000/ask", {  // your local MCP IP
+        const res = await fetch("http://192.168.1.104:8000/ask", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -17,12 +9,9 @@ sendBtn.addEventListener("click", async () => {
             body: JSON.stringify({ prompt })
         });
 
-        if (!res.ok) throw new Error("Server error");
-
         const data = await res.json();
-        responseDiv.textContent = data.response;
+        document.getElementById("response").innerText = data.response;
     } catch (err) {
-        responseDiv.textContent = "Error connecting to MCP server.";
-        console.error(err);
+        document.getElementById("response").innerText = "Error: " + err;
     }
 });
