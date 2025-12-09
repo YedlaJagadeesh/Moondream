@@ -1,7 +1,7 @@
 document.getElementById("sendBtn").addEventListener("click", async function() {
     const prompt = document.getElementById("prompt").value;
     try {
-        const res = await fetch("http://192.168.1.104:8000/ask", {
+        const res = await fetch("http://10/ask", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
